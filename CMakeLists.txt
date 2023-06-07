@@ -3,4 +3,6 @@ project(ChessEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ChessEngine main.cpp)
+include_directories(.)
+
+add_executable(ChessEngine main.cpp Piece/Piece.cpp Piece/Piece.h Common.h)
