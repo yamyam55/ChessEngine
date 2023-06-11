@@ -8,19 +8,11 @@
 #include <vector>
 
 #include "Common.h"
+#include "Move/Move.h"
+#include "Position/Position.h"
 
-
-// TODO: Remove after implementing Position class.
-class Position
-{
-public:
-    uint8_t getX();
-    uint8_t getY();
-};
-
-// TODO: Remove after implementing Move class.
-class Move
-{};
+class Position;
+class Move;
 
 class Piece {
 private:
@@ -59,6 +51,7 @@ public:
     bool isOnBoard();
     bool canMove();
     virtual std::vector<Move> getAllPossibleMoves();
+    virtual std::string toString();
 };
 
 
