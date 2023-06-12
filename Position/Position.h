@@ -18,14 +18,18 @@ private:
     uint8_t y;
     Color color;
     Piece* present_piece;
-
+    bool has_initialized;
 public:
-    Position(uint8_t x, uint8_t y, Color color, Piece *presentPiece) :
+    Position() : x(0), y(0), color(kWhite), present_piece(nullptr), has_initialized(false) {};
+
+    Position(uint8_t x, uint8_t y, Color color, Piece *present_piece) :
         x(x),
         y(y),
         color(color),
-        present_piece(presentPiece) {}
+        present_piece(present_piece) {};
 
+
+    void initializePosition(uint8_t x, uint8_t y, Color color, Piece *present_piece);
 
     // Getters
     uint8_t getX() const;
@@ -36,7 +40,7 @@ public:
     // Setters
     void setPiece(Piece* new_piece);
 
-    std::string toString();
+    std::string toString() const;
 };
 
 
