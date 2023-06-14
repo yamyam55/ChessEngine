@@ -14,6 +14,7 @@ private:
 
 public:
     Board();
+    Board(std::string board_file_path);
 
     const Position& getPosition(uint8_t x, uint8_t y) const;
     void printBoard() const;
