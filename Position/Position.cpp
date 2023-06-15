@@ -4,7 +4,7 @@
 
 #include "Position.h"
 
-void Position::initializePosition(uint8_t x, uint8_t y, Color color, Piece *present_piece){
+void Position::initializePosition(uint8_t x, uint8_t y, Color color, std::shared_ptr<Piece> present_piece){
     if (has_initialized)
     {
         throw invalidRequest("Position was already initialized.");
@@ -29,12 +29,15 @@ Color Position::getColor() const {
     return color;
 }
 
-Piece* Position::getPresentPiece() const {
+std::shared_ptr<Piece> Position::getPresentPiece() const {
     return present_piece;
 }
 
-std::string Position::toString() const
-{
+void Position::setPresentPiece(std::shared_ptr<Piece> new_piece) {
+    present_piece = new_piece;
+}
+
+std::string Position::toString() const {
     if (nullptr == present_piece)
     {
         return std::to_string(color);

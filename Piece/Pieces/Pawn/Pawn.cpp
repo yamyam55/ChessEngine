@@ -4,13 +4,12 @@
 
 #include "Pawn.h"
 
-
-std::vector<Move> getAllPossibleMoves() {
+std::vector<Move> Pawn::getAllPossibleMoves() {
     // TODO: Implement
     return std::vector<Move>();
 }
 
-std::string toString() {
+std::string Pawn::toString() {
     std::string piece_string = "";
     piece_string += PAWN_SYMBOL;
     return piece_string;

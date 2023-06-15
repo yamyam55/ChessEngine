@@ -2,24 +2,23 @@
 // Created by Yam on 14/06/2023.
 //
 
-#ifndef CHESSENGINE_PAWN_H
-#define CHESSENGINE_PAWN_H
+#ifndef CHESSENGINE_BISHOP_H
+#define CHESSENGINE_BISHOP_H
 
-#define PAWN_SCORE 1
-#define PAWN_SYMBOL 'P'
+#define BISHOP_SCORE 3
+#define BISHOP_SYMBOL 'B'
 
 #include "Common.h"
 #include "Piece/Piece.h"
-
 #include "Move/Move.h"
 
-class Pawn : public Piece{
+class Bishop : public Piece{
 public:
-    Pawn(const Position* position, Color color) : Piece(PAWN_SCORE, position, color) {};
+    Bishop(const Position* position, Color color) : Piece(BISHOP_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves();
     std::string toString();
 };
 
 
-#endif //CHESSENGINE_PAWN_H
+#endif //CHESSENGINE_BISHOP_H

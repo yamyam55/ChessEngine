@@ -32,6 +32,8 @@ public:
         is_protecting_king(false),
         has_moved(false){}
 
+    virtual ~Piece();
+
     // Getters
     int getScore() const;
     const Position *getPosition() const;
@@ -50,7 +52,7 @@ public:
 
     bool isOnBoard();
     bool canMove();
-    virtual std::vector<Move> getAllPossibleMoves();
+    virtual std::vector<Move> getAllPossibleMoves() = 0;
     virtual std::string toString();
 };
 

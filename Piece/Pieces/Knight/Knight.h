@@ -2,24 +2,23 @@
 // Created by Yam on 14/06/2023.
 //
 
-#ifndef CHESSENGINE_PAWN_H
-#define CHESSENGINE_PAWN_H
+#ifndef CHESSENGINE_KNIGHT_H
+#define CHESSENGINE_KNIGHT_H
 
-#define PAWN_SCORE 1
-#define PAWN_SYMBOL 'P'
+#define KNIGHT_SCORE 3
+#define KNIGHT_SYMBOL 'H'
 
 #include "Common.h"
 #include "Piece/Piece.h"
-
 #include "Move/Move.h"
 
-class Pawn : public Piece{
+class Knight : public Piece{
 public:
-    Pawn(const Position* position, Color color) : Piece(PAWN_SCORE, position, color) {};
+    Knight(const Position* position, Color color) : Piece(KNIGHT_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves();
     std::string toString();
 };
 
 
-#endif //CHESSENGINE_PAWN_H
+#endif //CHESSENGINE_KNIGHT_H
