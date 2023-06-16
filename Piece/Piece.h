@@ -35,12 +35,12 @@ public:
     virtual ~Piece();
 
     // Getters
-    int getScore() const;
-    const Position *getPosition() const;
-    Color getColor() const;
-    bool isUnderThreat() const;
-    bool isProtectingKing() const;
-    bool isHasMoved() const;
+    [[nodiscard("Value should be used")]] int getScore() const;
+    [[nodiscard("Value should be used")]] const Position *getPosition() const;
+    [[nodiscard("Value should be used")]] Color getColor() const;
+    [[nodiscard("Value should be used")]] bool isUnderThreat() const;
+    [[nodiscard("Value should be used")]] bool isProtectingKing() const;
+    [[nodiscard("Value should be used")]] bool isHasMoved() const;
 
     // Setters
     void setPosition(const Position *position);
@@ -52,9 +52,9 @@ public:
 
     bool isOnBoard();
     bool canMove();
+
     virtual std::vector<Move> getAllPossibleMoves() = 0;
     virtual std::string toString();
 };
-
 
 #endif //CHESSENGINE_PIECE_H

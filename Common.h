@@ -8,6 +8,7 @@
 #include <cinttypes>
 #include <exception>
 #include <iostream>
+#include <memory>
 
 #define BOARD_WIDTH 8
 #define BOARD_LENGTH 8

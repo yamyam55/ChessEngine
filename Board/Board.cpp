@@ -2,11 +2,14 @@
 // Created by Yam on 11/06/2023.
 //
 
+#define DETAILS_DELIMITER ','
+
 #include <fstream>
 #include <sstream>
+#include <typeindex>
+#include <map>
 
 #include "Board.h"
-
 #include "Piece/Pieces/Pawn/Pawn.h"
 #include "Piece/Pieces/Rook/Rook.h"
 #include "Piece/Pieces/Knight/Knight.h"
@@ -47,21 +50,35 @@ Board::Board(std::string board_file_path) : Board() {
             std::stringstream piece_info(line);
 
             // Parse line: piece type, color, x position, y position. e.g. P,B,1,1
-            std::getline(piece_info, piece_type_string, ',');
-            std::getline(piece_info, piece_color_string, ',');
-            std::getline(piece_info, x_position_string, ',');
-            std::getline(piece_info, y_position_string, ',');
+            std::getline(piece_info, piece_type_string, DETAILS_DELIMITER);
+            std::getline(piece_info, piece_color_string, DETAILS_DELIMITER);
+            std::getline(piece_info, x_position_string, DETAILS_DELIMITER);
+            std::getline(piece_info, y_position_string, DETAILS_DELIMITER);
 
-            // TODO: Add validation for values B/W.
-            Color piece_color = (piece_color_string.c_str()[0] == 'W') ? kWhite : kBlack;
+            Color piece_color;
+            switch (piece_color_string.c_str()[0])
+            {
+                case 'W': piece_color = kWhite; break;
+                case 'B': piece_color = kBlack; break;
+                default: throw invalidRequest("Invalid color specifier in board file: " + piece_color_string);
+            }
 
-            // TODO: Add validation for values between 0-7.
             std::uint8_t x_position = std::stoi(x_position_string);
+            if (x_position > 7)
+            {
+                throw invalidRequest("Invalid X position in board file: " + x_position_string);
+            }
+
             std::uint8_t y_position = std::stoi(y_position_string);
+            if (y_position > 7)
+            {
+                throw invalidRequest("Invalid Y position in board file: " + y_position_string);
+            }
 
             Position &piece_position = const_cast<Position &>(getPosition(x_position, y_position));
 
             std::shared_ptr<Piece> new_piece = nullptr;
+
             switch (piece_type_string.c_str()[0]) {
                 case PAWN_SYMBOL:
                     new_piece = std::make_shared<Pawn>(&piece_position, piece_color); break;
@@ -92,7 +109,7 @@ Board::Board(std::string board_file_path) : Board() {
 const Position& Board::getPosition(uint8_t x, uint8_t y) const {
     if ((x >= BOARD_WIDTH) || (y >= BOARD_LENGTH))
     {
-        throw invalidRequest();
+        throw invalidRequest("Position out of bounds.");
     }
 
     return board[x][y];
