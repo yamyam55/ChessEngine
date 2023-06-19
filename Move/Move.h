@@ -5,10 +5,10 @@
 #ifndef CHESSENGINE_MOVE_H
 #define CHESSENGINE_MOVE_H
 
-// TODO: Remove after implementing Position class.
-class Position
-{};
+#include "Position/Position.h"
 
+// TODO: Read about this. do you have to declare it like this?
+class Position;
 
 class Move {
 private:

@@ -64,3 +64,10 @@ bool Piece::canMove() {
     return true;
 }
 
+std::string Piece::toString() {
+    return "P";
+}
+
+Piece::~Piece() {
+
+}

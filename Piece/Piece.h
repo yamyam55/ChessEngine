@@ -8,19 +8,11 @@
 #include <vector>
 
 #include "Common.h"
+#include "Move/Move.h"
+#include "Position/Position.h"
 
-
-// TODO: Remove after implementing Position class.
-class Position
-{
-public:
-    uint8_t getX();
-    uint8_t getY();
-};
-
-// TODO: Remove after implementing Move class.
-class Move
-{};
+class Position;
+class Move;
 
 class Piece {
 private:
@@ -40,13 +32,15 @@ public:
         is_protecting_king(false),
         has_moved(false){}
 
+    virtual ~Piece();
+
     // Getters
-    int getScore() const;
-    const Position *getPosition() const;
-    Color getColor() const;
-    bool isUnderThreat() const;
-    bool isProtectingKing() const;
-    bool isHasMoved() const;
+    [[nodiscard("Value should be used")]] int getScore() const;
+    [[nodiscard("Value should be used")]] const Position *getPosition() const;
+    [[nodiscard("Value should be used")]] Color getColor() const;
+    [[nodiscard("Value should be used")]] bool isUnderThreat() const;
+    [[nodiscard("Value should be used")]] bool isProtectingKing() const;
+    [[nodiscard("Value should be used")]] bool isHasMoved() const;
 
     // Setters
     void setPosition(const Position *position);
@@ -58,8 +52,9 @@ public:
 
     bool isOnBoard();
     bool canMove();
-    virtual std::vector<Move> getAllPossibleMoves();
-};
 
+    virtual std::vector<Move> getAllPossibleMoves() = 0;
+    virtual std::string toString();
+};
 
 #endif //CHESSENGINE_PIECE_H
