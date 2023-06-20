@@ -14,7 +14,7 @@
 
 class Knight : public Piece{
 public:
-    Knight(const Position* position, Color color) : Piece(KNIGHT_SCORE, position, color) {};
+    Knight(const std::weak_ptr<Position> position, Color color) : Piece(KNIGHT_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves();
     std::string toString();

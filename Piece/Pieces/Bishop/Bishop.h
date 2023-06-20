@@ -14,7 +14,7 @@
 
 class Bishop : public Piece{
 public:
-    Bishop(const Position* position, Color color) : Piece(BISHOP_SCORE, position, color) {};
+    Bishop(const std::weak_ptr<Position> position, Color color) : Piece(BISHOP_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves();
     std::string toString();

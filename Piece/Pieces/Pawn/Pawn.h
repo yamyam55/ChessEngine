@@ -14,7 +14,7 @@
 
 class Pawn : public Piece{
 public:
-    Pawn(const Position* position, Color color) : Piece(PAWN_SCORE, position, color) {};
+    Pawn(const std::weak_ptr<Position> position, Color color) : Piece(PAWN_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves() override;
     std::string toString() override;

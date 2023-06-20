@@ -5,18 +5,23 @@
 #ifndef CHESSENGINE_BOARD_H
 #define CHESSENGINE_BOARD_H
 
+#define BOARD_WIDTH 8
+#define BOARD_LENGTH 8
+
+#include <memory>
+
 #include "Common.h"
 #include "Position/Position.h"
 
 class Board {
 private:
-    Position board[BOARD_LENGTH][BOARD_WIDTH];
+    std::shared_ptr<Position> board[BOARD_LENGTH][BOARD_WIDTH];
 
 public:
     Board();
     Board(std::string board_file_path);
 
-    const Position& getPosition(uint8_t x, uint8_t y) const;
+    const std::weak_ptr<Position> getPosition(uint8_t x, uint8_t y) const;
     void printBoard() const;
 };
 

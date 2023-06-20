@@ -6,8 +6,6 @@
 
 #include <fstream>
 #include <sstream>
-#include <typeindex>
-#include <map>
 
 #include "Board.h"
 #include "Piece/Pieces/Pawn/Pawn.h"
@@ -25,7 +23,8 @@ Board::Board()
     {
         for (int j = 0; j < BOARD_LENGTH; ++j)
         {
-            board[i][j].initializePosition(i, j, current_position_color, nullptr);
+            board[i][j] = std::make_shared<Position>(i, j, current_position_color, nullptr);
+//            board[i][j].initializePosition(i, j, current_position_color, nullptr);
             // Change next position color.
             current_position_color = (current_position_color) ? kWhite : kBlack;
         }
@@ -64,49 +63,47 @@ Board::Board(std::string board_file_path) : Board() {
             }
 
             std::uint8_t x_position = std::stoi(x_position_string);
-            if (x_position > 7)
+            if (x_position >= BOARD_WIDTH)
             {
                 throw invalidRequest("Invalid X position in board file: " + x_position_string);
             }
 
             std::uint8_t y_position = std::stoi(y_position_string);
-            if (y_position > 7)
+            if (y_position >= BOARD_LENGTH)
             {
                 throw invalidRequest("Invalid Y position in board file: " + y_position_string);
             }
 
-            Position &piece_position = const_cast<Position &>(getPosition(x_position, y_position));
+            std::weak_ptr<Position> piece_position = getPosition(x_position, y_position);
 
             std::shared_ptr<Piece> new_piece = nullptr;
 
             switch (piece_type_string.c_str()[0]) {
                 case PAWN_SYMBOL:
-                    new_piece = std::make_shared<Pawn>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<Pawn>(piece_position, piece_color); break;
                 case ROOK_SYMBOL:
-                    new_piece = std::make_shared<Rook>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<Rook>(piece_position, piece_color); break;
                 case KNIGHT_SYMBOL:
-                    new_piece = std::make_shared<Knight>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<Knight>(piece_position, piece_color); break;
                 case BISHOP_SYMBOL:
-                    new_piece = std::make_shared<Bishop>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<Bishop>(piece_position, piece_color); break;
                 case QUEEN_SYMBOL:
-                    new_piece = std::make_shared<Queen>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<Queen>(piece_position, piece_color); break;
                 case KING_SYMBOL:
-                    new_piece = std::make_shared<King>(&piece_position, piece_color); break;
+                    new_piece = std::make_shared<King>(piece_position, piece_color); break;
                 default:
                     throw invalidRequest("Invalid piece type in board file."); break;
             }
 
-            piece_position.setPresentPiece(new_piece);
+            piece_position.lock()->setPresentPiece(new_piece);
         }
     } catch (std::exception e)
     {
         throw invalidRequest("Invalid board file.");
     }
-    board_file.close();
-
 }
 
-const Position& Board::getPosition(uint8_t x, uint8_t y) const {
+const std::weak_ptr<Position> Board::getPosition(uint8_t x, uint8_t y) const {
     if ((x >= BOARD_WIDTH) || (y >= BOARD_LENGTH))
     {
         throw invalidRequest("Position out of bounds.");
@@ -120,7 +117,7 @@ void Board::printBoard() const {
     {
         for (int j = 0; j < BOARD_WIDTH; j++)
         {
-            std::cout << board[i][j].toString() << " ";
+            std::cout << board[i][j]->toString() << " ";
         }
 
         std::cout << std::endl;

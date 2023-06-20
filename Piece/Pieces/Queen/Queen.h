@@ -14,7 +14,7 @@
 
 class Queen : public Piece{
 public:
-    Queen(const Position* position, Color color) : Piece(QUEEN_SCORE, position, color) {};
+    Queen(const std::weak_ptr<Position> position, Color color) : Piece(QUEEN_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves() override;
     std::string toString() override;

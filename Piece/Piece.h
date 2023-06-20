@@ -17,40 +17,40 @@ class Move;
 class Piece {
 private:
     int score;
-    const Position* position;
+    std::weak_ptr<Position> position;
     Color color;
     bool is_under_threat;
     bool is_protecting_king;
     bool has_moved;
+    bool is_alive;
 
 public:
-    Piece(int score, const Position* position, Color color) :
+    Piece(int score, const std::weak_ptr<Position>& position, Color color) :
         score(score),
         position(position),
         color(color),
         is_under_threat(false),
         is_protecting_king(false),
-        has_moved(false){}
-
-    virtual ~Piece();
+        has_moved(false),
+        is_alive(true){}
 
     // Getters
     [[nodiscard("Value should be used")]] int getScore() const;
-    [[nodiscard("Value should be used")]] const Position *getPosition() const;
+    [[nodiscard("Value should be used")]] const std::weak_ptr<Position> getPosition() const;
     [[nodiscard("Value should be used")]] Color getColor() const;
     [[nodiscard("Value should be used")]] bool isUnderThreat() const;
     [[nodiscard("Value should be used")]] bool isProtectingKing() const;
     [[nodiscard("Value should be used")]] bool isHasMoved() const;
 
     // Setters
-    void setPosition(const Position *position);
+    void setPosition(const std::weak_ptr<Position>& position);
     void setScore(int score);
     void setColor(Color color);
     void setIsUnderThreat(bool isUnderThreat);
     void setIsProtectingKing(bool isProtectingKing);
     void setHasMoved(bool hasMoved);
 
-    bool isOnBoard();
+    bool isAlive();
     bool canMove();
 
     virtual std::vector<Move> getAllPossibleMoves() = 0;

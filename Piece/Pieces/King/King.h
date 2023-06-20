@@ -14,7 +14,7 @@
 
 class King : public Piece{
 public:
-    King(const Position* position, Color color) : Piece(KING_SCORE, position, color) {};
+    King(const std::weak_ptr<Position> position, Color color) : Piece(KING_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves() override;
     std::string toString() override;

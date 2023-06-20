@@ -19,9 +19,9 @@ private:
     uint8_t y;
     Color color;
     std::shared_ptr<Piece> present_piece;
-    bool has_initialized;
+
 public:
-    Position() : x(0), y(0), color(kWhite), present_piece(nullptr), has_initialized(false) {};
+    Position() : x(0), y(0), color(kWhite), present_piece(nullptr) {};
 
     Position(uint8_t x, uint8_t y, Color color, std::shared_ptr<Piece> present_piece) :
         x(x),

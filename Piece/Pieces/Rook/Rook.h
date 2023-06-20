@@ -14,7 +14,7 @@
 
 class Rook : public Piece{
 public:
-    Rook(const Position* position, Color color) : Piece(ROOK_SCORE, position, color) {};
+    Rook(const std::weak_ptr<Position> position, Color color) : Piece(ROOK_SCORE, position, color) {};
 
     std::vector<Move> getAllPossibleMoves() override;
     std::string toString() override;

@@ -10,9 +10,6 @@
 #include <iostream>
 #include <memory>
 
-#define BOARD_WIDTH 8
-#define BOARD_LENGTH 8
-
 enum Color
 {
     kWhite = 0,

@@ -12,12 +12,12 @@ void Piece::setScore(int score) {
     Piece::score = score;
 }
 
-const Position *Piece::getPosition() const {
+const std::weak_ptr<Position> Piece::getPosition() const {
     return position;
 }
 
-void Piece::setPosition(const Position *position) {
-    Piece::position = position;
+void Piece::setPosition(const std::weak_ptr<Position>& position) {
+    this->position = position;
 }
 
 Color Piece::getColor() const {
@@ -52,9 +52,8 @@ void Piece::setHasMoved(bool hasMoved) {
     has_moved = hasMoved;
 }
 
-bool Piece::isOnBoard() {
-    // If piece has position it is on the board, otherwise it' not.
-    return nullptr != position;
+bool Piece::isAlive() {
+    return is_alive;
 }
 
 bool Piece::canMove() {
@@ -66,8 +65,4 @@ bool Piece::canMove() {
 
 std::string Piece::toString() {
     return "P";
-}
-
-Piece::~Piece() {
-
 }
